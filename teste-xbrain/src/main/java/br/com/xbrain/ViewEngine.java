@@ -25,7 +25,8 @@ public class ViewEngine extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	IMatrizService matrizService = new MatrizService();
+	
+	private transient IMatrizService matrizService = new MatrizService();
 		
 	private JButton btnEsquerda = new JButton("ESQUERDA");
 	private JButton btnDireita = new JButton("DIREITA");
@@ -50,72 +51,43 @@ public class ViewEngine extends JFrame{
 	private int posicaoRoboVertical;	
 	private int posicaoRoboHorizontal;
 	
+	private static final String CAMINHO_IMG_LOGO = "src/main/resources/robo.jpg";
+	
+	
 	public ViewEngine(){
-		super(".:  TESTE XBRAIN  :.");		
+		super(".:  TESTE XBRAIN  :.");	
+		loadTela();
+	}	
+		
+	
+	public void loadTela() {				
 	    final Container c = getContentPane();
-	    c.setLayout(null);	    
-	 
+	    c.setLayout(null);	   	 
 	    matriz = new JLabel[10][10];		
-		
-		pnlA1.setBorder(javax.swing.BorderFactory.createTitledBorder(null,"MATRIZ ", javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.DEFAULT_POSITION, null,null));
-		pnlA1.setBackground(Color.WHITE);			
-		pnlA1.setBounds(10, 10, 470, 300);		
-		
-		
-		for(int i = 0; i < 10; i++){
-			for(int j = 0; j < 10; j++) {				
-				JLabel l = new JLabel("");
-				l.setHorizontalAlignment(JLabel.CENTER);			
-				
-				if(i==0 && j==0) {
-					
-					JLabel lX = new JLabel(new ImageIcon("src//imagem//robo.jpg") );
-					lX.setHorizontalAlignment(JLabel.CENTER);
-					matriz[i][j] = lX;
-					setPosicaoAtualRobo(i,j);
-				} else { 
-					matriz[i][j] = l;
-				}
-				
-				pnlA1.add(matriz[i][j]);				
-			}
-		}
-		
-	  
+		loadMatrizInicial();		
 		btnEsquerda.setBounds(30, 330, 100, 20);
 		btnDireita.setBounds(140, 330,100,20);
 		btnBaixo.setBounds(250, 330, 100, 20);
-		btnCima.setBounds(360, 330, 100, 20);
-		
+		btnCima.setBounds(360, 330, 100, 20);		
 		labelPosicaoXY.setBounds(30, 360, 100, 20);
-		valorPosicaoXY.setBounds(90, 360, 100, 20);
-		
+		valorPosicaoXY.setBounds(90, 360, 100, 20);		
 		labelPosicaoX.setBounds(30, 390, 100, 20);
-		txtValorPosicaoX.setBounds(45, 390, 15, 20);
-		
+		txtValorPosicaoX.setBounds(45, 390, 15, 20);		
 		labelPosicaoY.setBounds(90, 390, 100, 20);
-		txtValorPosicaoY.setBounds(105, 390, 15, 20);
-		
-		btnPosicionar.setBounds(140, 390, 110, 20);
-		
+		txtValorPosicaoY.setBounds(105, 390, 15, 20);		
+		btnPosicionar.setBounds(140, 390, 110, 20);		
 	   	c.add(btnEsquerda);
 	   	c.add(btnDireita);
 	 	c.add(btnBaixo);
-	 	c.add(btnCima);  
-	 	
+	 	c.add(btnCima);  	 	
 	 	c.add(labelPosicaoXY);
-	 	c.add(valorPosicaoXY);
-	 	
+	 	c.add(valorPosicaoXY);	 	
 	 	c.add(labelPosicaoX);
-	 	c.add(txtValorPosicaoX);
-	 	
+	 	c.add(txtValorPosicaoX);	 	
 	 	c.add(labelPosicaoY);
-	 	c.add(txtValorPosicaoY);
-	 	
-	 	c.add(btnPosicionar);
-	 	
-		c.add(pnlA1);			
-		
+	 	c.add(txtValorPosicaoY);	 	
+	 	c.add(btnPosicionar);	 	
+		c.add(pnlA1);	
 		
 		btnPosicionar.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent arg0) {
@@ -134,11 +106,10 @@ public class ViewEngine extends JFrame{
 					
 					
 				} catch(Exception ex){
-					System.out.println(ex.getMessage());
+					JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro",1);
 				}
 			}			
-		});		
-				
+		});	
 			
 		
 		btnBaixo.addActionListener(new ActionListener() {			
@@ -156,8 +127,8 @@ public class ViewEngine extends JFrame{
 					 posicionaRobo();										
 					 c.validate();
 				        					
-				}catch(Exception ex){
-					System.out.println(ex.getMessage());
+				}catch(Exception ex){				
+					JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro",1);
 				}
 			}			
 		});		
@@ -182,7 +153,7 @@ public class ViewEngine extends JFrame{
 					 c.validate();
 				        					
 				}catch(Exception ex){
-					System.out.println(ex.getMessage());
+					JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro",1);
 				}
 			}			
 		});		
@@ -204,7 +175,7 @@ public class ViewEngine extends JFrame{
 					 c.validate();
 				        					
 				}catch(Exception ex){
-					System.out.println(ex.getMessage());
+					JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro",1);
 				}
 			}			
 		});		
@@ -223,7 +194,7 @@ public class ViewEngine extends JFrame{
 					 c.validate();
 				        					
 				}catch(Exception ex){
-					System.out.println(ex.getMessage());
+					JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro",1);
 				}
 			}			
 		});			
@@ -231,6 +202,32 @@ public class ViewEngine extends JFrame{
 		
 	}	
 		
+	public void loadMatrizInicial() {
+		
+		pnlA1.setBorder(javax.swing.BorderFactory.createTitledBorder(null,"MATRIZ ", javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.DEFAULT_POSITION, null,null));
+		pnlA1.setBackground(Color.WHITE);			
+		pnlA1.setBounds(10, 10, 470, 300);		
+		
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++) {				
+				JLabel l = new JLabel("");
+				l.setHorizontalAlignment(JLabel.CENTER);			
+				
+				if(i==0 && j==0) {
+					
+					JLabel lX = new JLabel(new ImageIcon(CAMINHO_IMG_LOGO) );
+					lX.setHorizontalAlignment(JLabel.CENTER);
+					matriz[i][j] = lX;
+					setPosicaoAtualRobo(i,j);
+				} else { 
+					matriz[i][j] = l;
+				}
+				
+				pnlA1.add(matriz[i][j]);				
+			}
+		}
+		
+	}
 	
 	public void posicionaRobo() {
 		
@@ -240,7 +237,7 @@ public class ViewEngine extends JFrame{
 					l.setHorizontalAlignment(JLabel.CENTER);							
 					
 					if( (i == getPosicaoRoboVertical()) && (j == getPosicaoRoboHorizontal()) ) {									
-							JLabel lX = new JLabel(new ImageIcon("src//imagem//robo.jpg") );
+							JLabel lX = new JLabel(new ImageIcon(CAMINHO_IMG_LOGO) );
 							lX.setHorizontalAlignment(JLabel.CENTER);
 							matriz[i][j] = lX;
 					} else {									

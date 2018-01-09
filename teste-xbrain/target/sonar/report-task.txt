@@ -1,0 +1,6 @@
+projectKey=br.com.xbrain:teste-xbrain
+serverUrl=http://localhost:9000
+serverVersion=6.7.1.35068
+dashboardUrl=http://localhost:9000/dashboard/index/br.com.xbrain:teste-xbrain
+ceTaskId=AWDb6OJURtsaN5BIC9oH
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWDb6OJURtsaN5BIC9oH

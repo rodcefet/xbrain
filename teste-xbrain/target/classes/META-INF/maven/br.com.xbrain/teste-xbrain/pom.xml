@@ -4,6 +4,8 @@
   <artifactId>teste-xbrain</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+  <packaging>jar</packaging>
+  
 
  <dependencies>  
   <dependency>
@@ -14,5 +16,27 @@
   </dependency>
   
  </dependencies> 
+ 
+ <build>
+	<finalName>teste-xbrain</finalName>
+    <plugins>
+    
+    		
+			
+ 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>				
+				<configuration>					
+								 
+				  <archive>
+					<manifest>					
+						<mainClass>br.com.xbrain.StartEngine</mainClass>
+					</manifest>
+				  </archive>
+				</configuration>
+			</plugin>
+	</plugins>
+</build>	
   
 </project>
